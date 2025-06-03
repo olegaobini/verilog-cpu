@@ -1,6 +1,6 @@
 /*
 */
-
+`timescale 1ps/1ps  // Add this at the top of the file
 module DmemReg(clk, Dmem_write, D_addr, Reg_write, Reg_w_addr, Reg_Ra_addr, Reg_Rb_addr, A, B);
     input logic clk;
     
