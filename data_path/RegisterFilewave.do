@@ -1,13 +1,13 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate /Register_tb/clk;
-add wave -noupdate /Register_tb/write;
-add wave -noupdate /Register_tb/WriteAddress;
-add wave -noupdate /Register_tb/WriteData;
-add wave -noupdate /Register_tb/ReadAddrA;
-add wave -noupdate /Register_tb/ReadAddrB;
-add wave -noupdate /Register_tb/DataOutputA;
-add wave -noupdate /Register_tb/DataOutputB;
+add wave -noupdate /RegisterFile_tb/clk;
+add wave -noupdate /RegisterFile_tb/write;
+add wave -noupdate /RegisterFile_tb/WriteAddress;
+add wave -noupdate /RegisterFile_tb/WriteData;
+add wave -noupdate /RegisterFile_tb/ReadAddrA;
+add wave -noupdate /RegisterFile_tb/ReadAddrB;
+add wave -noupdate /RegisterFile_tb/DataOutputA;
+add wave -noupdate /RegisterFile_tb/DataOutputB;
     
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}
