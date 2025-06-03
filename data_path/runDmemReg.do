@@ -3,7 +3,6 @@ vlib work
 
 # Compile Altera libraries
 vmap altera_mf C:/intelFPGA_lite/20.1/modelsim_ase/altera/verilog/altera_mf
-
 vlog C:/intelFPGA_lite/20.1/modelsim_ase/altera/verilog/src/altera_mf.v
 
 # Compile Verilog

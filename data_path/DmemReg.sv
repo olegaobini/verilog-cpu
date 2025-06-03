@@ -1,5 +1,6 @@
 /*
 */
+
 `timescale 1ps/1ps  // Add this at the top of the file
 module DmemReg(clk, Dmem_write, D_addr, Reg_write, Reg_w_addr, Reg_Ra_addr, Reg_Rb_addr, A, B);
     input logic clk;
@@ -37,7 +38,6 @@ module DmemReg(clk, Dmem_write, D_addr, Reg_write, Reg_w_addr, Reg_Ra_addr, Reg_
         .ReadAddrB(Reg_Rb_addr), 
         .DataOutputA(A), 
         .DataOutputB(B));
-
 endmodule
 
 module DmemReg_tb();
@@ -78,10 +78,10 @@ module DmemReg_tb();
 
         // Test sequence
         #10; // Wait for some time
-        Dmem_write = 1; // Enable data memory write
-        D_addr = 8'h01; // Set address to write to
-        Reg_w_addr = 5'h01; // Set register write address
-        Reg_write = 1; // Enable register write
+        Dmem_write = 1;         // Enable data memory write
+        D_addr = 8'h00;         // Set address to write to
+        Reg_w_addr = 5'h01;     // Set register write address
+        Reg_write = 1;          // Enable register write
 
         #10; // Wait for some time
         Dmem_write = 0; // Disable data memory write
