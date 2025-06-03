@@ -1,0 +1,107 @@
+/*
+   TCES330 Spring 2025
+   Register.sv - Register File Module
+   Authors : Abdullah Almaroof & Olega Obini
+   Description: 
+     This module implements a register file with 16 registers, each 16 bits wide.
+     It allows writing to a specified register and reading from two specified registers.
+     The write operation is triggered by a clock signal and a write enable signal.
+     The read operations are combinational, providing the data from the specified registers.
+*/
+
+ module Register (clk, write, WriteAddress, WriteData, ReadAddrA, ReadAddrB, DataOutputA, DataOutputB);
+   input clk;                    // system clock (positive edge triggered)
+   input write;                  // write enable (only when it is high, the write operation is performed)
+
+   input [3:0] WriteAddress;     // write address (4-bit address to select the register to write to)
+   input [15:0] WriteData;       // write data (data to be written to the register from 2 to 1 mux)
+
+   input [3:0] ReadAddrA;        // A-side read address (4-bit address to select the register to read from)
+   input [3:0] ReadAddrB;        // B-side read address (4-bit address to select the register to read from)
+
+   output [15:0] DataOutputA;    // A-side read data (data read from the register specified by ReadAddrA)
+   output [15:0] DataOutputB;    // B-side read data (data read from the register specified by ReadAddrB)
+
+   logic [15:0] regfile [15:0];     // register file (array of 16 registers, each 16 bits wide)
+
+   // read the registers
+   assign DataOutputA = regfile[ReadAddrA];
+   assign DataOutputB = regfile[ReadAddrB];
+
+   // write the registers
+   always_ff @(posedge clk) begin
+      if (write) begin             
+         regfile[WriteAddress] <= WriteData; // write data to the specified register
+      end
+   end
+
+ endmodule
+
+ module Register_tb;
+
+   logic clk;
+   logic write;
+   logic [3:0] WriteAddress;
+   logic [15:0] WriteData;
+   logic [3:0] ReadAddrA;
+   logic [3:0] ReadAddrB;
+   logic [15:0] DataOutputA;
+   logic [15:0] DataOutputB;
+   
+   Register DUT(.clk(clk), .write(write), .WriteAddress(WriteAddress), .WriteData(WriteData), .ReadAddrA(ReadAddrA), .ReadAddrB(ReadAddrB), .DataOutputA(DataOutputA), .DataOutputB(DataOutputB));
+   
+   always begin      
+         clk = 0; #5;
+         clk = 1; #5; // Toggle clock every 5 time units
+      end
+
+
+   initial begin
+      // Initialize signals
+      clk = 0;
+      write = 0;
+      WriteAddress = 0;
+      WriteData = 0;
+      ReadAddrA = 0;
+      ReadAddrB = 0;
+
+      // Test writing to register 2
+      WriteAddress = 4'd5; // Address 2
+      WriteData = 16'h2025; // Data to write
+      write = 1; // Enable write
+      #100; // Wait for a clock cycle
+      write = 0; // Disable write
+
+      // Read from register 0
+      ReadAddrA = WriteAddress; // set address A = to write address
+      #100; // Wait for a clock cycle
+      
+      $display("Data at Address A: %h", DataOutputA); // Should print 1234
+
+      // Test writing to register 1
+      WriteAddress = 4'b0001; // Address 1
+      WriteData = 16'h5678; // Data to write
+      write = 1; // Enable write
+      #10; // Wait for a clock cycle
+      write = 0; // Disable write
+
+      // Read from register 1
+      ReadAddrB = 4'b0001; // Read from address 1
+      #10; // Wait for a clock cycle
+   
+      $display("Data at Address B: %h", DataOutputB); // Should print 5678
+
+      
+
+      for( int i = 0; i < 10; i++ ) begin
+         {write, WriteAddress, WriteData} = $random;
+         ReadAddrA = WriteAddress; #20;
+         {write, WriteAddress, WriteData} = $random;
+         ReadAddrB = WriteAddress; #20;
+      end
+
+      $finish; //End simulation
+
+   end
+
+endmodule
