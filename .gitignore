@@ -1,0 +1,6 @@
+
+#bak files
+*.bak
+
+#log files
+*.log
