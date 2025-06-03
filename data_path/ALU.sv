@@ -22,7 +22,6 @@ module ALU( A, B, Sel, Q );
 	end
 endmodule
 
-
 module ALU_tb;
 	logic [2:0] Sel; // function select
 	logic [15:0] A, B; // input data
