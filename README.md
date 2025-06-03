@@ -1,3 +1,3 @@
 # verilog-cpu
 
-WE IN THIS HO
+We are designing a 16 bit processor.
