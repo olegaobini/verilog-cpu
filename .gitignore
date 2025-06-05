@@ -11,3 +11,9 @@ data_path/work
 #modelsim files
 *.ini
 *.wlf
+
+#.ver files
+*.ver
+
+#wlft files
+data_path/wlft*
