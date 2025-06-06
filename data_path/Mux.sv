@@ -1,3 +1,12 @@
+/*
+   tces330 spring 2025
+   Mux.sv - Multiplexer File
+   authors : abdullah almaroof & olega obini
+   description: 
+   a multiplexer between the register file and data memory
+*/
+
+`timescale 1ns/1ps
 module Mux (X, Y, S, M); // A Mux 2 to 1 module
     // Port Declarations
     input S;
