@@ -1,7 +1,12 @@
 /*
+   tces330 spring 2025
+   DmemReg.sv - Data memory and Register file
+   authors : abdullah almaroof & olega obini
+   description: 
+   a module to test the data memory and register file connection
 */
 
-`timescale 1ps/1ps  // Add this at the top of the file
+`timescale 1ns/1ps  
 module DmemReg(clk, D_W_en, D_addr, RF_W_en, RF_W_addr, RF_Ra_addr, RF_Rb_addr, A, B);
     input logic clk;
     
