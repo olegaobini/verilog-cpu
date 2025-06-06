@@ -1,6 +1,13 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate /CounterMod10_tb/Clk
+add wave -noupdate /Datapath_tb/clk
+add wave -noupdate /Datapath_tb/D_Addr
+add wave -noupdate /Datapath_tb/D_wr
+add wave -noupdate /Datapath_tb/RF_W_addr
+add wave -noupdate /Datapath_tb/RF_W_en
+add wave -noupdate /Datapath_tb/RF_Ra_addr
+add wave -noupdate /Datapath_tb/RF_Rb_addr
+add wave -noupdate /Datapath_tb/Alu_s0
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}
