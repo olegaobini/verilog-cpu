@@ -1,7 +1,12 @@
 /*
+   tces330 spring 2025
+   RegALU.sv - Register and ALU Test Connection
+   authors : abdullah almaroof & olega obini
+   description: 
+    This file connects the Register File and ALU to test functionality
 */
 
-`timescale 1ps/1ps  
+`timescale 1ns/1ps  
 module RegALU(clk, RF_W_en, RF_W_addr, RF_Ra_addr, RF_Rb_addr, ALU_s0, Q);
     input logic clk;
     

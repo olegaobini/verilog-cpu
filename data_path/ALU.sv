@@ -1,13 +1,18 @@
-// Abdullah Almaroof & Olega Obini
-// Lab 4 Part 2 - Designing an ALU
-// May 7th 2025
+/*
+   TCES330 Spring 2025
+   ALU.sv - ALU
+   Authors : Abdullah Almaroof & Olega Obini
+   Description: 
+	An ALU with 8 operations.
+*/
 
+`timescale 1 ns / 1 ps
 module ALU( A, B, Sel, Q );
 	input [2:0] Sel; // function select
 	input [15:0] A, B; // input data
 	output logic [15:0] Q; // ALU output (result)
 
-	always @(Sel) begin
+	always @(A, B, Sel) begin
 		case(Sel) //  0123456
 		0: Q = 0;
 		1: Q = A + B;

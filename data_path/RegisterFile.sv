@@ -1,6 +1,6 @@
 /*
    TCES330 Spring 2025
-   Register.sv - Register File Module
+   RegisterFile.sv - Register File Module
    Authors : Abdullah Almaroof & Olega Obini
    Description: 
      This module implements a register file with 16 registers, each 16 bits wide.
@@ -9,6 +9,7 @@
      The read operations are combinational, providing the data from the specified registers.
 */
 
+`timescale 1 ns / 1ps
  module RegisterFile (clk, write, WriteAddress, WriteData, ReadAddrA, ReadAddrB, DataOutputA, DataOutputB);
    input clk;                    // system clock (positive edge triggered)
    input write;                  // write enable (only when it is high, the write operation is performed)

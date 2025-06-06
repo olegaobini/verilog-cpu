@@ -1,25 +1,39 @@
-// Abdullah Almaroof and Olega Obini
-// Datapath module for the CPU connecting ALU, registers, and memory
-// May 24, 2025
 
-module Datapath(D_Addr, D_wr, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk);
+/*
+   TCES330 Spring 2025
+   Datapath.sv - Datapath File
+   Authors : Abdullah Almaroof & Olega Obini
+   Description: 
+    Datapath module for the CPU connecting ALU, registers, and memory
+*/
+   
+`timescale 1ns/1ps
+module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk);
+    input           clk;
 
+    // Data Memory IO
     input [7:0]     D_Addr;
     input           D_wr;
+
+    // Mux IO
     input           RF_s;
+
+    // Register File IO
     input [3:0]     RF_W_addr;
     input           RF_W_en;
     input [3:0]     RF_Ra_addr;
     input [3:0]     RF_Rb_addr;
-    input [3:0]     Alu_s0;
-    input           clk;
 
+    // ALU IO
+    input [2:0]     Alu_s0;
+
+    // Wires
     logic [15:0]    Ra_data, Rb_data;   // Data from Register File
-    logic [15:0]    R_data;             // Data from Data Memory
+    logic [15:0]    Dmem_out;           // Data from Data Memory
     logic [15:0]    Mux16_out;          // Output from Mux
     logic [15:0]    Alu_out;            // Output from ALU
 
-    Register RF (
+    RegisterFile RF (
         .clk(clk),                  // Clock signal for register file
         .WriteAddress(RF_W_addr),   // Address to write to in register file
         .write(RF_W_en),            // Write enable signal for register file
@@ -40,69 +54,50 @@ module Datapath(D_Addr, D_wr, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0
     //if S=0, M=X; if S=1, M=Y
     Mux Mux(
     .X(Alu_out),    //  if S=0, Mux selects data from ALU
-    .Y(R_data),     //  if S=1, Mux selects data from Data Memory
+    .Y(Dmem_out),   //  if S=1, Mux selects data from Data Memory
     .S(RF_s),       // Select signal for Mux
     .M(Mux16_out)   // Output of Mux
     );
 
     DataMemory DM(
-        .clk(clk),          // Clock signal for data memory
-        .D_wr(D_wr),        // Write enable signal for data memory
-        .D_Addr(D_Addr),    // Address for data memory
-        .W_data(rRa_dat),   // Data to write to data memory
-        .R_data(da)         // Data read from data memory
-        );
+	.address(D_Addr),
+	.clock(clk),
+	.data(Ra_data),
+	.wren(D_wr),
+	.q(Dmem_out)
+    );
+
 endmodule
 
 module Datapath_tb;
 
-logic [7:0]     D_Addr;
-logic           D_wr;
-logic           RF_s;
-logic [3:0]     RF_W_addr;
-logic           RF_W_en;
-logic [3:0]     RF_Ra_addr;
-logic [3:0]     RF_Rb_addr;
-logic [3:0]     Alu_s0;
-logic           clk;
+    logic           clk;
+    logic [7:0]     D_Addr;
+    logic           D_wr;
+    logic           RF_s;
+    logic [3:0]     RF_W_addr;
+    logic           RF_W_en;
+    logic [3:0]     RF_Ra_addr;
+    logic [3:0]     RF_Rb_addr;
+    logic [2:0]     Alu_s0;
 
-logic [15:0]    Ra_data, Rb_data;   // Data from Register File
-logic [15:0]    R_data;             // Data from Data Memory
-logic [15:0]    Mux16_out;          // Output from Mux
-logic [15:0]    Alu_out;            // Output from ALU
-
-
-Datapath DUT (
-    .D_Addr(D_Addr),
-    .D_wr(D_wr),
-    .RF_s(RF_s),
-    .RF_W_addr(RF_W_addr),
-    .RF_W_en(RF_W_en),
-    .RF_Ra_addr(RF_Ra_addr),
-    .RF_Rb_addr(RF_Rb_addr),
-    .Alu_s0(Alu_s0),
-    .clk(clk)
-);
+    logic [15:0]    Ra_data, Rb_data;   // Data from Register File
+    logic [15:0]    R_data;             // Data from Data Memory
+    logic [15:0]    Mux16_out;          // Output from Mux
+    logic [15:0]    Alu_out;            // Output from ALU
 
 
-initial begin
-    // Initialize signals
-    clk = 0;
-    D_Addr = 8'h00;
-    D_wr = 0;
-    RF_s = 0;
-    RF_W_addr = 4'b0000;
-    RF_W_en = 0;
-    RF_Ra_addr = 4'b0000;
-    RF_Rb_addr = 4'b0001;
-    Alu_s0 = 4'b0000;
-
-    // Test writing to register file and ALU operations
-    #10; // Wait for some time
-    RF_W_en = 1; // Enable write to register file
-    RF_W_addr = 4'b0001; // Write to register 1
-    D_Addr = 8'h01; // Address in data memory
-    D_wr = 1; // Enable write to data memory
+    Datapath DUT (
+        .D_Addr(D_Addr),
+        .D_wr(D_wr),
+        .RF_s(RF_s),
+        .RF_W_addr(RF_W_addr),
+        .RF_W_en(RF_W_en),
+        .RF_Ra_addr(RF_Ra_addr),
+        .RF_Rb_addr(RF_Rb_addr),
+        .Alu_s0(Alu_s0),
+        .clk(clk)
+    );
 
     // Simulate clock cycles
     always begin
@@ -110,9 +105,20 @@ initial begin
         clk = 1; #5; // Toggle clock every 5 time units
     end
 
-    for(int i = 0; i < 9; i++) begin
-        {D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0} = $random #10; // Randomize inputs
-    end
-end
+    initial begin
+        // Initialize signals
+        clk = 0;
+        D_Addr = 8'h00;
+        D_wr = 0;
+        RF_s = 0;
+        RF_W_addr = 4'b0000;
+        RF_W_en = 0;
+        RF_Ra_addr = 4'b0000;
+        RF_Rb_addr = 4'b0001;
+        Alu_s0 = 4'b0000;
+        #10;
 
+        $finish;
+    end
 endmodule
+
