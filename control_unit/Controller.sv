@@ -2,54 +2,91 @@
 // June 4th 2025
 
 `timescale 1ps/1ps
-module Controller(Clock, ResetN, D_addr, D_wr,RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, ALU_s0, PC_out, IRout);
+module Controller(Clock, ResetN, D_addr, D_wr,RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, ALU_s0, PC_out, IROut, CurrentStateOut, NextStateOut);
 	//inputs
-	input Clock;
-	logic ResetN;
+	input logic Clock;
+	input logic ResetN;
 
 	//outputs
-	output logic [6:0] PC_out;  // this was 8 previously 
-	output logic [15:0] IROut;
-	//outstate
-	//nextstate
-	output logic [7:0] D_addr; //this was 7 previously
+	output logic [2:0] ALU_s0;
+	output logic [3:0] CurrentStateOut;
+	output logic [7:0] D_addr; 
 	output logic D_wr;
-	output logic RF_s;
-	output logic RF_W_en;
+	output logic [3:0] NextStateOut;
 	output logic [3:0] RF_Ra_addr;
 	output logic [3:0] RF_Rb_addr;
+	output logic RF_s;
 	output logic [3:0] RF_W_addr;
-	output logic [2:0] ALU_s0;
+	output logic RF_W_en;
+	output logic [15:0] IROut;
+	output logic [6:0] PC_out;  
 
 	//logic	
-	logic PC_Up
+	logic PC_Up;
 	logic PC_Clr; // INCLUDE IN FSM
 	logic [15:0] InstMemoryOut;
 	logic IR_ld; // INCLUDE IN FSM
 
 	
-	PC unit0 (Clock,PC_Clr,PC_Up,PC_out);
+	PC PC(
+		.Clock(Clock),
+		.Clr(PC_Clr),
+		.Up(PC_Up),
+		.address(PC_out)
+	);
 	
-	InstMemory unit1 (PC_out,Clock,InstMemoryOut);
+	InstMemory instMemory(
+		.address(PC_out),
+		.clock(Clock),
+		.q(InstMemoryOut)
+	);
 	
-	IR unit2 (Clock,IR_ld,InstMemoryOut,IROut);
+	IR IR(
+		.Clock(Clock),
+		.ld(IR_ld),
+		.data(InstMemoryOut),
+		.instruction(IROut)
+	);
 	
-	FSM unit3 (IROut, Clock, ResetN, PC_Clr, IR_ld, PC_Up, D_addr, D_wr,RF_s,RF_Ra_addr, RF_Rb_addr, RF_W_en, RF_W_addr, ALU_s0);
+	FSM FSM(
+		.IR(IROut), 
+		.Clock(Clock), 
+		.ResetN(ResetN), 
+		.PC_clr(PC_Clr), 
+		.IR_Id(IR_ld), 
+		.PC_up(PC_Up), 
+		.D_addr(D_addr), 
+		.D_wr(D_wr),
+		.RF_s(RF_s),
+		.RF_Ra_addr(RF_Ra_addr), 
+		.RF_Rb_addr(RF_Rb_addr), 
+		.RF_W_en(RF_W_en), 
+		.RF_W_addr(RF_W_addr), 
+		.ALU_s0(ALU_s0), 
+		.CurrentState(CurrentStateOut), 
+		.NextState(NextStateOut)
+	);
 
 endmodule
 
 module Controller_tb;
+	// Inputs
+	logic Clock;
+	logic ResetN;
 
-	logic Clock, ResetN;
-	
-	 logic [7:0] D_addr;
-	 logic D_wr;
-	 logic RF_s;
-	 logic  [3:0] RF_W_addr;
-	 logic RF_W_en;
-	 logic [3:0] RF_Ra_addr;
-	 logic [3:0] RF_Rb_addr;
-	 logic [2:0] ALU_s0;
+	// Outputs
+	logic [6:0] PC_out;  
+	logic [15:0] IROut;
+	logic [7:0] D_addr; 
+	logic D_wr;
+	logic RF_s;
+	logic RF_W_en;
+	logic [3:0] RF_Ra_addr;
+	logic [3:0] RF_Rb_addr;
+	logic [3:0] RF_W_addr;
+	logic [2:0] ALU_s0;
+	logic [3:0] CurrentStateOut;
+	logic [3:0] NextStateOut;
 
 	Controller DUT (.*);
 

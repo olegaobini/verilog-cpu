@@ -15,7 +15,8 @@ add wave -noupdate /Controller_tb/RF_Rb_addr
 add wave -noupdate /Controller_tb/RF_W_en
 add wave -noupdate /Controller_tb/RF_W_addr
 add wave -noupdate /Controller_tb/ALU_s0
-
+add wave -noupdate /Controller_tb/CurrentStateOut
+add wave -noupdate /Controller_tb/NextStateOut
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}
