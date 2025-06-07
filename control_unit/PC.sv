@@ -2,6 +2,7 @@
 // PC counter
 // June 1st 2025
 
+//`timescale 1ps/1ps
 module PC(Clock,Clr,Up,address);
 
 	input Clock,Clr,Up;		
@@ -12,10 +13,7 @@ module PC(Clock,Clr,Up,address);
 			address <= 7'd0;
 		end
 		else if(Up) begin
-			if(address == 7'd127) 
-				address <= 7'd0;
-			else
-				address <= address + 1;
+			address <= address + 1;
 		end
 	end
 endmodule
