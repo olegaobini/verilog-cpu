@@ -3,7 +3,7 @@
 // IR File
 
 `timescale 1ps/1ps
-module IR (Clock,ld,data,instruction);
+module IR (Clock, ld, data, instruction);
 
 	input ld, Clock;
 	input [15:0] data;

@@ -3,7 +3,7 @@
 // June 1st 2025
 
 //`timescale 1ps/1ps
-module PC(Clock,Clr,Up,address);
+module PC(Clock, Clr, Up, address);
 
 	input Clock,Clr,Up;		
 	output logic [6:0] address; 	//7 bit output
