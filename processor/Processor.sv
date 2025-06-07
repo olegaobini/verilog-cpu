@@ -1,10 +1,11 @@
 
-module Processor(clk, Reset, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU_Out); 
-    input clk;               // processor clock 
-    input Reset;             // system reset 
+`timescale 1ns / 1ps
+module Processor(Clk, ResetN, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU_Out); 
+    input Clk;               // processor clock 
+    input ResetN;             // system reset 
     
     output [15:0] IR_Out;    // Instruction register 
-    output [7:0]  PC_Out;    // Program counter 
+    output [6:0]  PC_Out;    // Program counter 
     output [3:0]  State;     // FSM current state 
     output [3:0]  NextState; // FSM next state (or 0 if you don’t use one) 
     output [15:0] ALU_A;     // ALU A-Side Input 
@@ -21,39 +22,44 @@ module Processor(clk, Reset, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU
     // register file
     logic RF_W_en;
     logic [3:0] RF_W_addr;
-    logic [3:0] RF_Ra_addr;
-    logic [3:0] RF_Rb_addr;
+    logic [3:0] RF_Ra_Addr;
+    logic [3:0] RF_Rb_Addr;
     
     //ALU
     logic [2:0] ALU_s0;
 
     Datapath DP(
-        .clk(clk)
+        .clk(Clk),
         .D_Addr(D_addr), 
         .D_wr(D_wr), 
         .RF_s(RF_s), 
         .RF_W_addr(RF_W_addr), 
         .RF_W_en(RF_W_en), 
-        .RF_Ra_addr(RF_Ra_addr), 
-        .RF_Rb_addr(RF_Rb_addr), 
-        .Alu_s0(ALU_s0), 
+        .RF_Ra_addr(RF_Ra_Addr), 
+        .RF_Rb_addr(RF_Rb_Addr), 
+        .Alu_s0(ALU_s0)
         );
 
-    Controller CU(
-        .Clock(clk), 
-        .ResetN(Reset),
+    Controller CU (
+        .Clock(Clk), 
+        .ResetN(ResetN),
         .D_addr(D_addr),
         .D_wr(D_wr),
         .RF_s(RF_s), 
         .RF_W_addr(RF_W_addr), 
         .RF_W_en(RF_W_en), 
-        .RF_Ra_addr(RF_Ra_addr), 
-        .RF_Rb_addr(RF_Rb_addr),
-        .ALU_s0(ALU_s0));
+        .RF_Ra_addr(RF_Ra_Addr), 
+        .RF_Rb_addr(RF_Rb_Addr),
+        .ALU_s0(ALU_s0),
+        .PC_out(PC_Out),
+        .IROut(IR_Out),
+        .CurrentStateOut(State),
+        .NextStateOut(NextState)
+        );
 
 endmodule
 
-module testProcessor;
+module Processor_tb;
     logic Clk;                            // system clock
     logic ResetN;                         // system ResetN
 
