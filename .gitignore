@@ -38,6 +38,7 @@ data_path/wlft*
 *.qdb
 *.log
 *.sv.bak
+*bb.v
 
 #control_unit generated files and folders
 control_unit/transcript
@@ -46,6 +47,5 @@ control_unit/work/
 
 #processor generated files and foldersA
 processor/db/
-
 
 
