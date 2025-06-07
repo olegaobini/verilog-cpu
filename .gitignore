@@ -47,5 +47,5 @@ control_unit/work/
 
 #processor generated files and foldersA
 processor/db/
-
+processor/rtl_work/
 
