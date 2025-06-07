@@ -1,10 +1,10 @@
-
 /*
    TCES330 Spring 2025
    Datapath.sv - Datapath File
    Authors : Abdullah Almaroof & Olega Obini
    Description: 
-    Datapath module for the CPU connecting ALU, registers, and memory
+    This module implements the datapath of a simple processor.
+    It includes a Register File, ALU, Mux, and Data Memory.
 */
    
 `timescale 1ns/1ps
