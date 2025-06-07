@@ -17,3 +17,35 @@ data_path/work
 
 #wlft files
 data_path/wlft*
+
+#flock files
+*.flock
+
+# Quartus/ModelSim generated files and folders
+*.ver
+*.bak
+*.cr.mti
+*.mpf
+*.ini
+*.wlf
+*.qip
+*.bb.v
+*.cmp
+*.bsf
+*.inc
+*.sdc
+*.qdf
+*.qdb
+*.log
+*.sv.bak
+
+#control_unit generated files and folders
+control_unit/transcript
+control_unit/rtl_work/
+control_unit/work/
+
+#processor generated files and foldersA
+processor/db/
+
+
+
