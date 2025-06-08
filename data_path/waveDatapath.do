@@ -12,7 +12,6 @@ add wave -noupdate /Datapath_tb/Ra_data
 add wave -noupdate /Datapath_tb/Rb_data
 add wave -noupdate /Datapath_tb/Alu_out
 
-
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ps} 0}
 quietly wave cursor active 0
