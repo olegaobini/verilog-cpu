@@ -54,4 +54,7 @@ control_unit/work/
 processor/db/
 processor/work/
 processor/rtl_work/
+processor/output_files/
+processor/simulation/
+processor/incremental_db/
 
