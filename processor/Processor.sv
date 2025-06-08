@@ -37,7 +37,10 @@ module Processor(Clk, ResetN, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, AL
         .RF_W_en(RF_W_en), 
         .RF_Ra_addr(RF_Ra_Addr), 
         .RF_Rb_addr(RF_Rb_Addr), 
-        .Alu_s0(ALU_s0)
+        .Alu_s0(ALU_s0),
+        .Ra_data(ALU_A),
+        .Rb_data(ALU_B),
+        .Alu_out(ALU_Out)
         );
 
     Controller CU (
