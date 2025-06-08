@@ -83,10 +83,7 @@ module Datapath_tb;
     logic [2:0]     Alu_s0;
 
     logic [15:0]    Ra_data, Rb_data;   // Data from Register File
-    logic [15:0]    R_data;             // Data from Data Memory
-    logic [15:0]    Mux16_out;          // Output from Mux
     logic [15:0]    Alu_out;            // Output from ALU
-
 
     Datapath DUT (
         .D_Addr(D_Addr),
@@ -103,15 +100,16 @@ module Datapath_tb;
         .Alu_out(Alu_out)
     );
 
-    // Simulate clock cycles
+    // Clock generation
     always begin
-        clk = 0; #5; // Wait for 10 time units
-        clk = 1; #5; // Toggle clock every 5 time units
+        clk = 0; #5;
+        clk = 1; #5;
     end
 
     initial begin
-        // Initialize signals
-        clk = 0;
+        integer i;
+        
+        // Initialize
         D_Addr = 8'h00;
         D_wr = 0;
         RF_s = 0;
@@ -119,9 +117,65 @@ module Datapath_tb;
         RF_W_en = 0;
         RF_Ra_addr = 4'b0000;
         RF_Rb_addr = 4'b0001;
-        Alu_s0 = 4'b0000;
+        Alu_s0 = 3'b000;
         #10;
 
+        // 1. Write a value to register 1 via ALU (ALU outputs 0)
+        RF_W_addr = 4'b0001;
+        RF_W_en = 1;
+        RF_Ra_addr = 4'b0000;
+        RF_Rb_addr = 4'b0000;
+        Alu_s0 = 3'b000; // ALU outputs 0
+        RF_s = 0;        // Select ALU output
+        #10;
+        RF_W_en = 0;
+
+        // 2. Write a value to register 2 via ALU (ALU outputs 5)
+        RF_W_addr = 4'b0010;
+        RF_W_en = 1;
+        RF_Ra_addr = 4'b0001;
+        RF_Rb_addr = 4'b0001;
+        Alu_s0 = 3'b001; // ALU outputs A+B (0+0=0, but let's try with different values)
+        #10;
+        RF_W_en = 0;
+
+        // 3. Read back from register 1 and 2
+        RF_Ra_addr = 4'b0001;
+        RF_Rb_addr = 4'b0010;
+        #10;
+        $display("Register 1: %h, Register 2: %h", Ra_data, Rb_data);
+
+        // 4. Write to DataMemory from register 1
+        D_Addr = 8'h10;
+        D_wr = 1;
+        RF_Ra_addr = 4'b0001; // Ra_data will be written to memory
+        #10;
+        D_wr = 0;
+
+        // 5. Read from DataMemory into register 3
+        D_Addr = 8'h10;
+        RF_W_addr = 4'b0011;
+        RF_W_en = 1;
+        RF_s = 1; // Select DataMemory output via Mux
+        #10;
+        RF_W_en = 0;
+
+        // 6. Read back from register 3
+        RF_Ra_addr = 4'b0011;
+        #10;
+        $display("Register 3 (should match register 1): %h", Ra_data);
+
+        // 7. Test ALU operations (add, sub, xor, etc.)
+        RF_Ra_addr = 4'b0001;
+        RF_Rb_addr = 4'b0011;
+        
+        for (i = 0; i < 8; i = i + 1) begin
+            Alu_s0 = i;
+            #10;
+            $display("ALU sel=%0d, A=%h, B=%h, Out=%h", Alu_s0, Ra_data, Rb_data, Alu_out);
+        end
+
+        $display("Datapath testbench complete.");
         $finish;
     end
 endmodule
