@@ -7,9 +7,8 @@
     It includes a Register File, ALU, Mux, and Data Memory.
 */
    
-`timescale 1ns/1ps
-module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk, 
-                Ra_data, Rb_data, Alu_out);
+`timescale 1ps/1ps
+module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk, Ra_data, Rb_data, Alu_out);
     input           clk;
 
     // Data Memory IO
@@ -34,10 +33,25 @@ module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, 
     logic [15:0]    Dmem_out;           // Data from Data Memory
     logic [15:0]    Mux16_out;          // Output from Mux
 
+    DataMemory DM(
+	.clock(clk),
+	.address(D_Addr),
+	.data(Ra_data),
+	.wren(D_wr),
+	.q(Dmem_out)
+    );
+    
+    Mux Mux(
+    .X(Alu_out),    //  if S=0, Mux selects data from ALU
+    .Y(Dmem_out),   //  if S=1, Mux selects data from Data Memory
+    .S(RF_s),       // Select signal for Mux
+    .M(Mux16_out)   // Output of Mux
+    );
+
     RegisterFile RF (
         .clk(clk),                  // Clock signal for register file
+        .RF_W_en(RF_W_en),            // Write enable signal for register file
         .WriteAddress(RF_W_addr),   // Address to write to in register file
-        .write(RF_W_en),            // Write enable signal for register file
         .ReadAddrA(RF_Ra_addr),     // Address to read from in register file (Ra)
         .ReadAddrB(RF_Rb_addr),     // Address to read from in register file (Rb)
         .WriteData(Mux16_out),      // Data to write to register file
@@ -52,26 +66,9 @@ module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, 
         .Q(Alu_out)     // Output of ALU operation
     );
 
-    //if S=0, M=X; if S=1, M=Y
-    Mux Mux(
-    .X(Alu_out),    //  if S=0, Mux selects data from ALU
-    .Y(Dmem_out),   //  if S=1, Mux selects data from Data Memory
-    .S(RF_s),       // Select signal for Mux
-    .M(Mux16_out)   // Output of Mux
-    );
-
-    DataMemory DM(
-	.address(D_Addr),
-	.clock(clk),
-	.data(Ra_data),
-	.wren(D_wr),
-	.q(Dmem_out)
-    );
-
 endmodule
 
 module Datapath_tb;
-
     logic           clk;
     logic [7:0]     D_Addr;
     logic           D_wr;
@@ -97,7 +94,7 @@ module Datapath_tb;
         .clk(clk),
         .Ra_data(Ra_data),
         .Rb_data(Rb_data),
-        .Alu_out(Alu_out)
+        .Alu_out(Alu_out),
     );
 
     // Clock generation
@@ -106,35 +103,31 @@ module Datapath_tb;
         clk = 1; #5;
     end
 
-
     initial begin
         // Initialize signals
-        D_Addr = 8'h00;
+        D_Addr = 8'h01;
         D_wr = 0;
-        RF_s = 0;
-        RF_W_addr = 4'b0000;
+        RF_s = 1;
+        RF_W_addr = 4'b0001;
         RF_W_en = 0;
-        RF_Ra_addr = 4'b0000;
+        RF_Ra_addr = 4'b0001;
         RF_Rb_addr = 4'b0001;
         Alu_s0 = 3'b000; 
         #10; 
+        #10; 
+        $display("Dmem_out at D_address %0d: %h", D_Addr, Dmem_out);
+        $display("mux output: %h", Mux16_out);
 
-        // Set address to 27 and select DataMemory output
-        D_Addr = 8'd27;
-        RF_s = 1;         // Select DataMemory output via Mux
-        #10;              // Wait for DataMemory output to update
-
-        // Now write DataMemory output to register 1
-        RF_W_addr = 4'b0001; // Write to register 1
+        // Now write Dmem_out to register 1
         RF_W_en = 1;
         #10;
         RF_W_en = 0;
 
-        // Now read back from register 1
+        // Read back from register 1
         RF_Ra_addr = 4'b0001;
         #10;
+        $display("Register 1 (should match Dmem_out): %h", Ra_data);
 
-        $display("Register 1 (should be nonzero): %h", Ra_data);
         $display("Datapath testbench complete.");
         $finish;
     end
