@@ -47,6 +47,8 @@ module FSM(
     end	
 
 	always_comb begin
+		NextState = CurrentState; //chatgpt told me to do this, so I did it
+
 		// default values
 		PC_clr = 0;
 		IR_Id = 0;
