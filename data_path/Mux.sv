@@ -14,7 +14,6 @@ module Mux (X, Y, S, M); // A Mux 2 to 1 module
     output [15:0] M; // 1 single-bit output
     
     assign M = ({16{~S}} & X) | ({16{S}} & Y);
-    // assign M = (~S & X) | (S & Y); // Mux logic: if S=0, M=X; if S=1, M=Y
 
 endmodule
 

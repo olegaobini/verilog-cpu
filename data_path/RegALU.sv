@@ -41,7 +41,6 @@ module RegALU(clk, RF_W_en, RF_W_addr, RF_Ra_addr, RF_Rb_addr, ALU_s0, Q);
         .Sel(ALU_s0), 
         .Q(Q)
         );
-
 endmodule
 
 module RegALU_tb();
@@ -73,19 +72,18 @@ module RegALU_tb();
         // Initialize signals
         RF_W_en = 0;         // Disable register file write
         RF_W_addr = 5'h00;   // Set write address to 0
-        RF_Ra_addr = 5'h01;  // Set read address A
-        RF_Rb_addr = 5'h02;  // Set read address B
+        RF_Ra_addr = 5'h00;  // Set read address A
+        RF_Rb_addr = 5'h00;  // Set read address B
         ALU_s0 = 3'b000;     // Set ALU operation to 0 (e.g., no operation)
         Q = 16'h0000;        // Initialize output to 0
+        #10; 
 
         // Test sequence
-        #10; // Wait for some time
         RF_W_en = 1;         // Enable register file write
         RF_W_addr = 5'h01;   // Set register write address
         ALU_s0 = 3'b001;     // Set ALU operation to addition
         RF_Ra_addr = 5'h01;  // Set read address A to the same as write address
         RF_Rb_addr = 5'h02;  // Set read address B to another register
-
 
         #10; // Wait for some time
         RF_W_en = 0;         // Disable register file write
