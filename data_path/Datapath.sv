@@ -8,7 +8,8 @@
 */
    
 `timescale 1ns/1ps
-module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk);
+module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk, 
+                Ra_data, Rb_data, Alu_out);
     input           clk;
 
     // Data Memory IO
