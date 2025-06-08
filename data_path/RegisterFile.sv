@@ -20,8 +20,8 @@
    input [3:0] ReadAddrA;        // A-side read address (4-bit address to select the register to read from)
    input [3:0] ReadAddrB;        // B-side read address (4-bit address to select the register to read from)
 
-   output [15:0] DataOutputA;    // A-side read data (data read from the register specified by ReadAddrA)
-   output [15:0] DataOutputB;    // B-side read data (data read from the register specified by ReadAddrB)
+   output logic [15:0] DataOutputA;    // A-side read data (data read from the register specified by ReadAddrA)
+   output logic [15:0] DataOutputB;    // B-side read data (data read from the register specified by ReadAddrB)
 
    logic [15:0] regfile [15:0];     // register file (array of 16 registers, each 16 bits wide)
 
@@ -49,7 +49,16 @@
    logic [15:0] DataOutputA;
    logic [15:0] DataOutputB;
    
-   Register DUT(.clk(clk), .write(write), .WriteAddress(WriteAddress), .WriteData(WriteData), .ReadAddrA(ReadAddrA), .ReadAddrB(ReadAddrB), .DataOutputA(DataOutputA), .DataOutputB(DataOutputB));
+   RegisterFile DUT(
+      .clk(clk), 
+      .write(write), 
+      .WriteAddress(WriteAddress), 
+      .WriteData(WriteData), 
+      .ReadAddrA(ReadAddrA), 
+      .ReadAddrB(ReadAddrB), 
+      .DataOutputA(DataOutputA), 
+      .DataOutputB(DataOutputB)
+   );
    
    always begin      
          clk = 0; #5;
@@ -76,7 +85,7 @@
       WriteAddress = 4'd5; // Address 2
       WriteData = 16'h2025; // Data to write
       write = 1; // Enable write
-      #100; // Wait for a clock cycle
+      #10; // Wait for a clock cycle
       write = 0; // Disable write
 
       // Read from register 0
