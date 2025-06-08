@@ -40,6 +40,11 @@ data_path/wlft*
 *.sv.bak
 *bb.v
 
+#data_path generated files and folders
+data_path/work/
+data_path/db/
+data_path/rtl_work/
+
 #control_unit generated files and folders
 control_unit/transcript
 control_unit/rtl_work/
@@ -47,5 +52,6 @@ control_unit/work/
 
 #processor generated files and foldersA
 processor/db/
+processor/work/
 processor/rtl_work/
 
