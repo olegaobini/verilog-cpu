@@ -57,8 +57,9 @@ module DataMemory (
 // synopsys translate_on
 `endif
 
-	wire [15:0] sub_wire0;
-	wire [15:0] q = sub_wire0[15:0];
+        wire [15:0] sub_wire0;
+        wire [15:0] q;
+        assign q = sub_wire0[15:0];
 
 	altsyncram	altsyncram_component (
 				.address_a (address),
