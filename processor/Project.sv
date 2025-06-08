@@ -9,15 +9,14 @@
 */
 
 `timescale 1 ns / 1 ps
-module Project( Clk, Reset, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU_Out, KEY, SW, HEX7, HEX6, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0);
+module Project( CLOCK_50, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU_Out, KEY, SW, HEX7, HEX6, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, LEDG);
 
-	input Clk; // processor clock
-	input Reset; // system reset
 	input [17:0] SW;
 	input [3:0] KEY;
+	input CLOCK_50;
 	
-	assign Clk = KEY[2];
 	
+	output [3:0] LEDG; // LEDs for output
 	output [15:0] IR_Out; // Instruction register
 	output [7:0] PC_Out; // Program counter
 	output [3:0] State; // FSM current state
@@ -35,9 +34,19 @@ module Project( Clk, Reset, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU_
 	output [0:6] HEX7;
 	
 	logic [15:0] X0,X1,X2,X3,X4,X5,X6,X7;
+	logic Clk, Reset;
 	
+	assign Clk = KEY[2];
+	assign LEDG[3:0] = SW[3:0]; 
+
+
 	Processor unit0 (Clk, Reset, IR_Out, PC_Out, State, NextState, ALU_A, ALU_B, ALU_Out);
 	
-	Mux_16w_8_to_1 unit1 (.S(SW[17:15]), X0, X1, X2, X3, X4, X5, X6, X7, M);
+	// Mux_16w_8_to_1 unit1 (SW[17:15], X0, X1, X2, X3, X4, X5, X6, X7, M);
+
+
+
+
+
 	
 endmodule
