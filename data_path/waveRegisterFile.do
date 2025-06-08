@@ -1,7 +1,7 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate /RegisterFile_tb/clk;
-add wave -noupdate /RegisterFile_tb/write;
+add wave -noupdate /RegisterFile_tb/RF_W_en;
 add wave -noupdate /RegisterFile_tb/WriteAddress;
 add wave -noupdate /RegisterFile_tb/WriteData;
 add wave -noupdate /RegisterFile_tb/ReadAddrA;
