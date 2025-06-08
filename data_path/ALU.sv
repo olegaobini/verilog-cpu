@@ -12,7 +12,7 @@ module ALU( A, B, Sel, Q );
 	input [15:0] A, B; // input data
 	output logic [15:0] Q; // ALU output (result)
 
-	always @(A, B, Sel) begin
+	always_comb begin
 		case(Sel) //  0123456
 		0: Q = 0;
 		1: Q = A + B;
@@ -22,7 +22,12 @@ module ALU( A, B, Sel, Q );
 		5: Q = A | B;
 		6: Q = A & B;
 		7: Q = A + 1;
-		default: $display("Error");
+		default: 
+		begin
+			Q = 16'hxxxx; // default case
+			$display("Error");
+		end
+
 		endcase
 	end
 endmodule
