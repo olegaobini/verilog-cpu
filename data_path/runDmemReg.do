@@ -20,7 +20,7 @@ vsim -voptargs="+acc" -t 1ps -lib work DmemReg_tb
 # Source the wave do file
 #     This should be the file that sets up the signal window for
 #     the module you are testing.
-do DmemRegwave.do
+do waveDmemReg.do
 
 # Set the window types
 view wave

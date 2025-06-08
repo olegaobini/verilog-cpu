@@ -20,7 +20,7 @@ vsim -voptargs="+acc" -t 1ps -lib work RegALU_tb
 # Source the wave do file
 #     This should be the file that sets up the signal window for
 #     the module you are testing.
-do RegALUwave.do
+do waveRegALU.do
 
 # Set the window types
 view wave
