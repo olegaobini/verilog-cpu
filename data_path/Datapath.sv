@@ -26,12 +26,12 @@ module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, 
 
     // ALU IO
     input [2:0]     Alu_s0;
+    output [15:0]   Alu_out;            // Output from ALU
+    output [15:0]   Ra_data, Rb_data;   // Data from Register File
 
     // Wires
-    logic [15:0]    Ra_data, Rb_data;   // Data from Register File
     logic [15:0]    Dmem_out;           // Data from Data Memory
     logic [15:0]    Mux16_out;          // Output from Mux
-    logic [15:0]    Alu_out;            // Output from ALU
 
     RegisterFile RF (
         .clk(clk),                  // Clock signal for register file
@@ -96,7 +96,10 @@ module Datapath_tb;
         .RF_Ra_addr(RF_Ra_addr),
         .RF_Rb_addr(RF_Rb_addr),
         .Alu_s0(Alu_s0),
-        .clk(clk)
+        .clk(clk),
+        .Ra_data(Ra_data),
+        .Rb_data(Rb_data),
+        .Alu_out(Alu_out)
     );
 
     // Simulate clock cycles
