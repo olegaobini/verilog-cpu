@@ -5,18 +5,12 @@
 #log files
 *.log
 
-#temp files
-data_path/work
-
 #modelsim files
 *.ini
 *.wlf
 
 #.ver files
 *.ver
-
-#wlft files
-data_path/wlft*
 
 #flock files
 *.flock
@@ -28,8 +22,6 @@ data_path/wlft*
 *.mpf
 *.ini
 *.wlf
-*.qip
-*.bb.v
 *.cmp
 *.bsf
 *.inc
@@ -38,24 +30,24 @@ data_path/wlft*
 *.qdb
 *.log
 *.sv.bak
-*bb.v
 
 #data_path generated files and folders
-data_path/work/
-data_path/db/
-data_path/rtl_work/
+DataPath/work/
+DataPath/wlft*
+DataPath/work
+DataPath/db/
+DataPath/rtl_work/
 
 #control_unit generated files and folders
-control_unit/transcript
-control_unit/rtl_work/
-control_unit/work/
+ControlUnit/transcript
+ControlUnit/rtl_work/
+ControlUnit/work/
 
 #processor generated files and foldersA
-processor/db/
-processor/work/
-processor/rtl_work/
-processor/output_files/
-processor/simulation/
-processor/incremental_db/
-processor/.qsys_edit/
-
+Project/db/
+Project/work/
+Project/rtl_work/
+Project/output_files/
+Project/simulation/
+Project/incremental_db/
+Project/.qsys_edit/
