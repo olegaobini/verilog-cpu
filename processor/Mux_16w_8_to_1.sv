@@ -1,7 +1,7 @@
 module Mux_16w_8_to_1 (S, X0, X1, X2, X3, X4, X5, X6, X7, M);
     input [2:0] S;
     input logic [15:0] X0, X1, X2, X3, X4, X5, X6, X7;
-    output logic [2:0] M;
+    output logic [15:0] M;
 
 	always @* begin
 		case(S)
@@ -22,7 +22,7 @@ module Mux_3w_8_to_1_tb;
 
 	logic [2:0] S;
     logic [15:0] X0, X1, X2, X3, X4, X5, X6, X7;
-    logic [2:0] M;
+    logic [15:0] M;
 
 	Mux_16w_8_to_1 DUT (.M(M),.S(S),.X0(X0),.X1(X1),.X2(X2),.X3(X3),.X4(X4),.X5(X5),.X6(X6),.X7(X7));
 
