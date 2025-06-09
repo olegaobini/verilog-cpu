@@ -25,7 +25,6 @@
 *.cmp
 *.bsf
 *.inc
-*.sdc
 *.qdf
 *.qdb
 *.log
