@@ -1,6 +1,12 @@
-// Abdullah Almaroof
-// June 3rd 2025
-// This combines the IR, PC and IM in the control unit to test them
+/*
+    TCES330 Spring 2025
+    File Name: CombinedPCROMIR.sv
+    Project, Simple Processor
+    Author: Abduallah Almaroof and Olega Obini 
+    Description:
+        This module combines the functionalities of the Program Counter (PC), Instruction Memory (IM), 
+        and Instruction Register (IR).
+*/
 
 `timescale 1ps/1ps
 module CombinedPCROMIR(

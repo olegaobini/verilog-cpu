@@ -1,30 +1,33 @@
 
 /*
-   tces330 spring 2025
-   DmemReg.sv - Data memory and Register file
-   authors : abdullah almaroof & olega obini
-   description: 
-   a module to test the data memory and register file connection
+	TCES330 Spring 2025
+	File Name: DmemReg.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+        This module tests the data memory and register file for simple processor.
+        It connects the data memory to the register file, allowing read and write operations.
+        The module handles data memory writes and register file reads based on control signals.
 */
 
 `timescale 1ns/1ps  
 module DmemReg(clk, D_W_en, D_addr, RF_W_en, RF_W_addr, RF_Ra_addr, RF_Rb_addr, A, B);
     input logic clk;
     
-    // for data memory
+    // For data memory
     input D_W_en;               // write enable
     input [7:0] D_addr;         // data address
 
-    // for register file
+    // For register file
     input RF_W_en;            // write enable for register file
     input [3:0] RF_W_addr;   // write address for register file
     input [3:0] RF_Ra_addr;  // read address A
     input [3:0] RF_Rb_addr;  // read address B
 
-    //output
+    // Output
     output logic [15:0] A, B;       // read data from register file
 
-    //wires
+    // Wires
     wire logic [15:0] DmemReg_data; // data output from data memory to register file
 
     DataMemory Dmem(

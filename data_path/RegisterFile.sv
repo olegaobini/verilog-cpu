@@ -1,12 +1,13 @@
 /*
-   TCES330 Spring 2025
-   RegisterFile.sv - Register File Module
-   Authors : Abdullah Almaroof & Olega Obini
-   Description: 
-     This module implements a register file with 16 registers, each 16 bits wide.
-     It allows writing to a specified register and reading from two specified registers.
-     The write operation is triggered by a clock signal and a write enable signal.
-     The read operations are combinational, providing the data from the specified registers.
+	TCES330 Spring 2025
+	File Name: RegisterFile.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+         This module implements a register file for a simple processor.
+         It allows reading and writing of 16-bit data to/from registers.
+         The register file consists of 16 registers, each 16 bits wide.
+         The module supports read and write operations based on control signals.
 */
 
 `timescale 1 ns / 1ps

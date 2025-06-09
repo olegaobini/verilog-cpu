@@ -1,3 +1,14 @@
+/*
+	TCES330 Spring 2025
+	File Name: Mux_16w_8_to_1.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+		This module implements a 8-to-1 multiplexer for 16-bit wide inputs.
+		It selects one of the eight 16-bit inputs based on a 3-bit select signal.
+		The output is the selected input based on the value of the select signal.
+*/
+
 module Mux_16w_8_to_1 (S, X0, X1, X2, X3, X4, X5, X6, X7, M);
     input [2:0] S;
     input logic [15:0] X0, X1, X2, X3, X4, X5, X6, X7;

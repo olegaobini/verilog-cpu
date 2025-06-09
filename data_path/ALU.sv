@@ -1,9 +1,12 @@
 /*
-   TCES330 Spring 2025
-   ALU.sv - ALU
-   Authors : Abdullah Almaroof & Olega Obini
-   Description: 
-	An ALU with 8 operations.
+	TCES330 Spring 2025
+	File Name: ALU.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+		This module implements the Arithmetic Logic Unit (ALU) for a simple processor.
+		It performs various arithmetic and logical operations based on the selected function.
+		The ALU can add, subtract, perform bitwise operations, and increment the input A.
 */
 
 `timescale 1 ns / 1 ps
@@ -13,12 +16,12 @@ module ALU( A, B, Sel, Q );
 	output logic [15:0] Q; // ALU output (result)
 
 	always_comb begin
-		case(Sel) //  0123456
+		case(Sel) 
 		0: Q = 0;
 		1: Q = A + B;
 		2: Q = A - B;
 		3: Q = A;
-		4: Q = A ^ B; // XOR A to B
+		4: Q = A ^ B; 
 		5: Q = A | B;
 		6: Q = A & B;
 		7: Q = A + 1;

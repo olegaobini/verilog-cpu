@@ -1,9 +1,13 @@
 /*
-   tces330 spring 2025
-   RegALU.sv - Register and ALU Test Connection
-   authors : abdullah almaroof & olega obini
-   description: 
-    This file connects the Register File and ALU to test functionality
+	TCES330 Spring 2025
+	File Name: RegALU.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+        This module implements a register file and an ALU for a simple processor.
+        The register file allows reading and writing of 16-bit data to/from registers,
+        while the ALU performs operations based on the select signal.
+        The output is the result of the ALU operation.
 */
 
 `timescale 1ns/1ps  

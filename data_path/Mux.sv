@@ -1,9 +1,12 @@
 /*
-   tces330 spring 2025
-   Mux.sv - Multiplexer File
-   authors : abdullah almaroof & olega obini
-   description: 
-   a multiplexer between the register file and data memory
+	TCES330 Spring 2025
+	File Name: Mux.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+        This module implements a 2-to-1 multiplexer (Mux) for a simple processor.
+        It selects between two 16-bit inputs based on a single select signal.
+        The output is the selected input based on the value of the select signal.
 */
 
 `timescale 1ns/1ps

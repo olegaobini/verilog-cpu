@@ -1,6 +1,13 @@
-// Abdullah Almaroof and Olega Obini
-// PC counter
-// June 1st 2025
+/*
+	TCES330 Spring 2025
+	File Name: PC.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+        This module implements the Program Counter (PC) for a simple processor.
+        It increments the address on each clock cycle when the Up signal is high,
+        and resets to zero when the Clr signal is high.
+*/
 
 //`timescale 1ps/1ps
 module PC(Clock, Clr, Up, address);

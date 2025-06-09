@@ -1,8 +1,14 @@
-//TCES 330 Spring 2025 
-//The Key Filter follows a button synchronizer
-//allows at most 10 output signals per second 
-//with a 50MHz clock
+/*
+	TCES330 Spring 2025
+	File Name: KeyFilter.sv
+	Project, Simple Processor
+	Author: Dr. Jenny Sheng
+	Description:
+		The Key Filter follows a button synchronizer
+		allows at most 10 output signals per second 
+		with a 50MHz clock
 
+*/
 module KeyFilter (Clk, In, Out);
 	input Clk, In;			//Clock and input signal of the system
 	output logic Out; 	//Output of the filter

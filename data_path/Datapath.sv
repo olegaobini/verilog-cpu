@@ -1,12 +1,14 @@
-/*
-   TCES330 Spring 2025
-   Datapath.sv - Datapath File
-   Authors : Abdullah Almaroof & Olega Obini
-   Description: 
-    This module implements the datapath of a simple processor.
-    It includes a Register File, ALU, Mux, and Data Memory.
-*/
-   
+  /*
+	TCES330 Spring 2025
+	File Name: Datapath.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+        This module implements the datapath for a simple processor.
+        It includes the data memory, register file, ALU, and multiplexers.
+        The datapath connects these components to perform operations based on control signals.
+*/ 
+
 `timescale 1ns/1ps
 module Datapath(D_Addr, D_wr, RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, Alu_s0, clk, Ra_data, Rb_data, Alu_out);
     input           clk;
@@ -166,93 +168,4 @@ module Datapath_tb;
         $finish;
     end
 
-    // initial begin
-    //     integer i;
-
-    //     // 1. Initialize
-    //     D_Addr = 8'h00;
-    //     D_wr = 0;
-    //     RF_s = 0;
-    //     RF_W_addr = 4'b0000;
-    //     RF_W_en = 0;
-    //     RF_Ra_addr = 4'b0000;
-    //     RF_Rb_addr = 4'b0000;
-    //     Alu_s0 = 3'b000;
-    //     #10;
-
-    //     // 2. Write a value to register 1 via ALU 
-    //     // Set up operands in registers 0 and 0 (both 0), ALU add (0+0=0)
-    //     RF_W_addr = 4'b0001;
-    //     RF_W_en = 1;
-    //     RF_Ra_addr = 4'b0000;
-    //     RF_Rb_addr = 4'b0000;
-    //     Alu_s0 = 3'b001; // ALU add
-    //     RF_s = 0;        // Select ALU output
-    //     #10;
-    //     RF_W_en = 0;
-
-    //     // 3. Write a value to register 2 via DataMemory (address 27, value 8634)
-    //     D_Addr = 8'd27;
-    //     RF_s = 1;         // Select DataMemory output
-    //     RF_W_addr = 4'b0010;
-    //     RF_W_en = 0;
-    //     #10;              // Wait for Dmem_out to update
-    //     RF_W_en = 1;
-    //     #10;
-    //     RF_W_en = 0;
-
-    //     // 4. Read back from register 1 and 2
-    //     RF_Ra_addr = 4'b0001;
-    //     RF_Rb_addr = 4'b0010;
-    //     #10;
-    //     $display("Register 1 (ALU result): %h", Ra_data);
-    //     $display("Register 2 (from Dmem[27]): %h", Rb_data);
-
-    //     // 5. Write register 2's value to DataMemory address 42
-    //     D_Addr = 8'd42;
-    //     D_wr = 1;
-    //     RF_Ra_addr = 4'b0010; // Ra_data will be written to memory
-    //     #10;
-    //     D_wr = 0;
-
-    //     // 6. Read from DataMemory address 42 into register 3
-    //     D_Addr = 8'd42;
-    //     RF_s = 1;
-    //     RF_W_addr = 4'b0011;
-    //     #10;
-    //     RF_W_en = 1;
-    //     #10;
-    //     RF_W_en = 0;
-
-    //     // 7. Read back from register 3
-    //     RF_Ra_addr = 4'b0011;
-    //     #10;
-    //     $display("Register 3 (should match register 2): %h", Ra_data);
-
-    //     // 8. Test ALU operations (add, sub, xor, etc.) between reg2 and reg3
-    //     RF_Ra_addr = 4'b0010;
-    //     RF_Rb_addr = 4'b0011;
-    //     for (i = 0; i < 8; i = i + 1) begin
-    //         Alu_s0 = i[2:0];
-    //         #10;
-    //         $display("ALU sel=%0d, A=%h, B=%h, Out=%h", Alu_s0, Ra_data, Rb_data, Alu_out);
-    //     end
-
-    //     $display("Datapath testbench complete.");
-    //     $finish;
-    // end
 endmodule
-
-/*
-CONTENT BEGIN
-	[0..26]  :   0;
-	27   :   8634;
-	[28..41]  :   0;
-	42   :   41038;
-	[43..59]  :   0;
-	60   :   29100;
-	[61..125]  :   0;
-	126  :   45439;
-	[127..255]  :   0;
-END;
-*/

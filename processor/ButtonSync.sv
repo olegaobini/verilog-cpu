@@ -1,8 +1,18 @@
+/*
+	TCES330 Spring 2025
+	File Name: ButtonSync.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+        This module synchronizes a raw push-button input to the system clock.
+        It uses a two-flip-flop synchronizer to ensure that the button state is stable
+        and aligned with the clock, preventing metastability issues.
+*/
 
 module ButtonSync (
-    input  logic Clk,          // 50 MHz system clock
-    input  logic Bi,        // raw push-button (active-low)
-    output logic Bo      // stable, clock-aligned level
+    input  logic Clk,           // 50 MHz system clock
+    input  logic Bi,            // raw push-button (active-low)
+    output logic Bo             // stable, clock-aligned level
 );
 
     // Polarity: 1 = pressed

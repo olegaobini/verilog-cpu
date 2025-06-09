@@ -1,11 +1,11 @@
 /*
-   TCES330 Spring 2025
-   File Name: Decoder.sv
-   Lab 6, Part1
-   Author: Abduallah Almaroof and Olega Obini 
-   Description:
-    This module implements a 4-bit decoder that converts a 4-bit binary input
-	into a 7-segment display output.
+	TCES330 Spring 2025
+	File Name: Decoder.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+		This module implements a 4-bit decoder that converts a 4-bit binary input
+		into a 7-segment display output.
 */
 
 module Decoder( Hex, V);
@@ -53,7 +53,4 @@ module Decoder_tb;
 			$display("%b,%b",Hex,V);
 		end
 	end
-
-	
-
 endmodule

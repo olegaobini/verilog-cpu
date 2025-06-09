@@ -1,20 +1,24 @@
 /*
-   TCES330 Spring 2025
-   Project.sv - high-level module for the processor project
-   Authors : Abdullah Almaroof & Olega Obini
-   Description: 
-    This module serves as the top-level design for the processor project
-    It instantiates the Processor, Mux, and other components as needed
-    The module connects inputs and outputs to facilitate communication between components and FPGA
+	TCES330 Spring 2025
+	File Name: Project.sv
+	Project, Simple Processor
+	Author: Abduallah Almaroof and Olega Obini 
+	Description:
+		This module integrates various components of a simple processor, including the processor, 
+		button synchronization, key filtering, and multiplexing for output display.
+		It connects the processor's outputs to the HEX displays and LEDs for visualization.
 */
+
 
 `timescale 1 ns / 1 ps
 module Project( CLOCK_50, KEY, SW, HEX7, HEX6, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, LEDG, LEDR);
 
+	// Inputs
 	input logic [17:0] SW;
 	input logic [3:0] KEY;
 	input logic CLOCK_50;
 
+	// Outputs
 	output logic [3:0] LEDG; 
 	output logic [17:0] LEDR;
 	output logic [0:6] HEX0;
@@ -26,11 +30,11 @@ module Project( CLOCK_50, KEY, SW, HEX7, HEX6, HEX5, HEX4, HEX3, HEX2, HEX1, HEX
 	output logic [0:6] HEX6;
 	output logic [0:6] HEX7;
 
-	// key condition wires
+	// Key Condition Wires
 	logic ButtonSync_Out;
 	logic KeyFilter_Out;
 
-	//processor mux wires
+	// Processor & Mux Wires
 	logic [15:0] ALU_A; 
 	logic [15:0] ALU_B; 
 	logic [15:0] ALU_Out;

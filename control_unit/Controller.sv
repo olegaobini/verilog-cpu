@@ -1,5 +1,13 @@
-// Abdullah Almaroof
-// June 4th 2025
+/*
+   TCES330 Spring 2025
+   File Name: Controller.sv
+   Project, Simple Processor
+   Author: Abduallah Almaroof and Olega Obini 
+   Description:
+     This module implements the controller for a simple processor.
+	 It manages the program counter, instruction memory, instruction register, and finite state machine.
+	 The controller coordinates the flow of data and control signals within the processor.
+*/
 
 `timescale 1ps/1ps
 module Controller(Clock, ResetN, D_addr, D_wr,RF_s, RF_W_addr, RF_W_en, RF_Ra_addr, RF_Rb_addr, ALU_s0, PC_out, IROut, CurrentStateOut, NextStateOut);
