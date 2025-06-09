@@ -57,4 +57,5 @@ processor/rtl_work/
 processor/output_files/
 processor/simulation/
 processor/incremental_db/
+processor/.qsys_edit/
 
