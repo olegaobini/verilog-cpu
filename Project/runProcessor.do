@@ -15,16 +15,16 @@ vmap work rtl_work
 #     their own "vlog" line below.
 vlog -work work +acc +cover "./Processor.sv"
 vlog -work work +acc +cover "./testProcessor.sv"
-vlog -work work +acc +cover "../control_unit/Controller.sv"
-vlog -work work +acc +cover "../control_unit/PC.sv"
-vlog -work work +acc +cover "../control_unit/InstMemory.v"
-vlog -work work +acc +cover "../control_unit/IR.sv"
-vlog -work work +acc +cover "../control_unit/FSM.sv"
-vlog -work work +acc +cover "../data_path/Datapath.sv"
-vlog -work work +acc +cover "../data_path/RegisterFile.sv"
-vlog -work work +acc +cover "../data_path/ALU.sv"
-vlog -work work +acc +cover "../data_path/Mux.sv"
-vlog -work work +acc +cover "../data_path/DataMemory.v"
+vlog -work work +acc +cover "../Controller/Controller.sv"
+vlog -work work +acc +cover "../Controller/PC.sv"
+vlog -work work +acc +cover "../Controller/InstMemory.v"
+vlog -work work +acc +cover "../Controller/IR.sv"
+vlog -work work +acc +cover "../Controller/FSM.sv"
+vlog -work work +acc +cover "../DataPath/Datapath.sv"
+vlog -work work +acc +cover "../DataPath/RegisterFile.sv"
+vlog -work work +acc +cover "../DataPath/ALU.sv"
+vlog -work work +acc +cover "../DataPath/Mux.sv"
+vlog -work work +acc +cover "../DataPath/DataMemory.v"
 
 # Call vsim to invoke simulator
 #     Make sure the last item on the line is the name of the
